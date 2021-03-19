@@ -1,5 +1,6 @@
 from libcloud.common.base import ConnectionKey, JsonResponse
-from libcloud.compute.base import NodeDriver, NodeImage, NodeLocation
+from libcloud.compute.base import KeyPair, NodeDriver, NodeImage, NodeLocation
+from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 
 
 class VscaleConnection(ConnectionKey):
@@ -43,3 +44,17 @@ class VscaleDriver(NodeDriver):
 
     def list_size(self):
         pass
+
+    def list_key_pairs(self):
+        response = self.connection.request("v1/sshkeys")
+        key_pairs = []
+        for kp in response.object:
+            key_pair = KeyPair(
+                name=kp["name"],
+                public_key=kp["key"],
+                fingerprint=get_pubkey_openssh_fingerprint(kp["key"]),
+                driver=self,
+                extra=dict(id=kp["id"]),
+            )
+            key_pairs.append(key_pair)
+        return key_pairs
