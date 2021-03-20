@@ -58,3 +58,9 @@ class VscaleDriver(NodeDriver):
             )
             key_pairs.append(key_pair)
         return key_pairs
+
+    def get_key_pair(self, key_name):
+        key_pairs = self.list_key_pairs()
+        for kp in key_pairs:
+            if kp.name == key_name:
+                return kp
