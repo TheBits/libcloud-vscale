@@ -64,3 +64,4 @@ class VscaleDriver(NodeDriver):
         for kp in key_pairs:
             if kp.name == key_name:
                 return kp
+        return None
