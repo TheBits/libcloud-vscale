@@ -17,7 +17,7 @@ def test_list_key_pairs():
 
 
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
-def test_list_key_pair():
+def test_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     key = conn.get_key_pair("x200s")
     assert key.name == "x200s"
