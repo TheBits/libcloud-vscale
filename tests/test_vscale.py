@@ -29,8 +29,8 @@ def test1_get_key_pair():
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
 def test2_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
-    key = conn.get_key_pair("x200s")
-    assert key.name != "MissingName"
+    key = conn.get_key_pair("MissingName")
+    assert key is None
 
 
 @vcr.use_cassette("./tests/fixtures/get_key_pair_empty.yaml", filter_headers=["X-Token"])
