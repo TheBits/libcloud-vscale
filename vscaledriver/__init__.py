@@ -1,5 +1,7 @@
+import datetime
+
 from libcloud.common.base import ConnectionKey, JsonResponse
-from libcloud.compute.base import KeyPair, NodeDriver, NodeImage, NodeLocation
+from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 
 
@@ -65,3 +67,46 @@ class VscaleDriver(NodeDriver):
             if kp.name == key_name:
                 return kp
         return None
+
+    def list_nodes(self):
+        response = self.connection.request("v1/scalets")
+        nodes = []
+        for n in response.object:
+
+            state = NodeState.UNKNOWN
+            if n["status"] == "started":
+                state = NodeState.RUNNING
+            elif n["status"] == "stopped":
+                state = NodeState.STOPPED
+            elif n["status"] == "billing":
+                state = NodeState.SUSPENDED
+            elif n["status"] == "queued":  # в документации нет, но в API возвращает
+                state = NodeState.PENDING
+
+            created = datetime.datetime.strptime(n["created"], "%d.%m.%Y %H:%M:%S")
+
+            private_ips = []
+            if n["private_address"]:
+                private_ips.append(n["private_address"]["address"])
+
+            public_ips = []
+            if n["public_address"]:
+                public_ips.append(n["public_address"]["address"])
+
+            # неправильно передаётся name. для сравнения можно использовать поле id
+            image = NodeImage(n["made_from"], name=n["made_from"], driver=self)
+
+            node = Node(
+                id=n["ctid"],
+                name=n["name"],
+                state=state,
+                public_ips=public_ips,
+                private_ips=private_ips,
+                driver=self,
+                image=image,
+                extra=n,
+                created_at=created,
+            )
+            nodes.append(node)
+
+        return nodes

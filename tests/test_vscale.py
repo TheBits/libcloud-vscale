@@ -1,3 +1,4 @@
+import datetime
 import os
 
 import vcr
@@ -38,3 +39,15 @@ def test3_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     key = conn.get_key_pair("x200s")
     assert key is None
+
+
+@vcr.use_cassette("./tests/fixtures/list_nodes.yaml", filter_headers=["X-Token"])
+def test4_list_nodes():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    nodes = conn.list_nodes()
+    assert nodes
+
+    node1 = nodes[0]
+    assert node1.id == "3547397"
+    assert node1.created_at == datetime.datetime(2021, 3, 20, 5, 25, 10)
+    assert node1.image.id == 'ubuntu_20.04_64_001_master'
