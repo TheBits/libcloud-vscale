@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.3.1 (Vscale) '
+    method: GET
+    uri: https://api.vscale.io/v1/scalets
+  response:
+    body:
+      string: '[{"ctid":3547397,"name":"New-Test","status":"started","location":"spb0","rplan":"small","keys":[{"id":70307,"name":"newkey"},{"id":46329,"name":"x200s"}],"tags":[],"public_address":{"netmask":"255.255.255.0","gateway":"31.184.254.1","address":"31.184.254.27"},"private_address":{},"made_from":"ubuntu_20.04_64_001_master","hostname":"new-test","created":"20.03.2021 05:25:10","active":true,"locked":false,"deleted":null,"block_reason":null,"block_reason_custom":null,"date_block":null},{"ctid":3547400,"name":"New-Test","status":"queued","location":"spb0","rplan":"small","keys":[{"id":70307,"name":"newkey"},{"id":46329,"name":"x200s"}],"tags":[],"public_address":{"netmask":"255.255.255.0","gateway":"188.68.221.1","address":"188.68.221.91"},"private_address":{},"made_from":"","hostname":"","created":"20.03.2021 05:25:24","active":true,"locked":true,"deleted":null,"block_reason":null,"block_reason_custom":null,"date_block":null}]'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '432'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 Mar 2021 13:29:02 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWBUpx4ygQvuHmCVAg==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+      X-Request-Id:
+      - RuIk6evHHQAsPu9rhd4XJ
+    status:
+      code: 200
+      message: OK
+version: 1

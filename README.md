@@ -47,6 +47,8 @@ libcloud драйвер для сервиса vscale.io.
 |delete zone||
 |delete record||
 
+# Документация к API
+https://developers.vscale.io/documentation/api/v1/
 
 ## Разработка
 
