@@ -1,5 +1,6 @@
 *.py[cod]
 .envrc
+*.egg-info/
 __pycache__/
 .direnv/
 .tox/
