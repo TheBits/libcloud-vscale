@@ -13,6 +13,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/thebits/libcloud-vscale",
+    install_requires=["apache-libcloud>=3.0.0"],
     packages=setuptools.find_packages(),
     classifiers=[
         "Intended Audience :: System Administrators",
