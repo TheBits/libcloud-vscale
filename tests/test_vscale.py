@@ -50,4 +50,4 @@ def test4_list_nodes():
     node1 = nodes[0]
     assert node1.id == "3547397"
     assert node1.created_at == datetime.datetime(2021, 3, 20, 5, 25, 10)
-    assert node1.image.id == 'ubuntu_20.04_64_001_master'
+    assert node1.image.id == "ubuntu_20.04_64_001_master"
