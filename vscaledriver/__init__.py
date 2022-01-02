@@ -19,6 +19,13 @@ class VscaleDriver(NodeDriver):
     name = "Vscale"
     website = "https://vscale.io/"
 
+    NODE_STATE_MAP = {
+        "started": NodeState.RUNNING,
+        "stopped": NodeState.STOPPED,
+        "billing": NodeState.SUSPENDED,
+        "queued": NodeState.PENDING,  # в документации нет, но в API возвращает
+    }
+
     def list_locations(self):
         response = self.connection.request("api/datacenter")
         country = {
@@ -73,15 +80,7 @@ class VscaleDriver(NodeDriver):
         nodes = []
         for n in response.object:
 
-            state = NodeState.UNKNOWN
-            if n["status"] == "started":
-                state = NodeState.RUNNING
-            elif n["status"] == "stopped":
-                state = NodeState.STOPPED
-            elif n["status"] == "billing":
-                state = NodeState.SUSPENDED
-            elif n["status"] == "queued":  # в документации нет, но в API возвращает
-                state = NodeState.PENDING
+            state = self.NODE_STATE_MAP.get(n["status"], NodeState.UNKNOWN)
 
             created = datetime.datetime.strptime(n["created"], "%d.%m.%Y %H:%M:%S")
 
