@@ -93,7 +93,7 @@ class VscaleDriver(NodeDriver):
             if n["public_address"]:
                 public_ips.append(n["public_address"]["address"])
 
-            # неправильно передаётся name. для сравнения можно использовать поле id
+            # неправильно передаётся name. для сравнения используется поле id
             image = NodeImage(n["made_from"], name=n["made_from"], driver=self)
 
             node = Node(
