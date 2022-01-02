@@ -1,51 +1,76 @@
 libcloud драйвер для сервиса vscale.io.
 
 ## Поддерживаемые методы Compute
+
+### Управление нодами
+| Метод | Поддержка |
+| --- | --- |
+|create_node| #7 |
+|deploy_node| :heavy_minus_sign: |
+|destroy_node| #8 |
+|features| |
+|list_nodes| :heavy_check_mark:|
+|reboot_node| #17 |
+|start_node| #11 |
+|stop_node| #11 |
+|wait_until_running| :heavy_minus_sign: |
+
+### Управление образами
+| Метод | Поддержка |
+| --- | --- |
+|copy_image| |
+|create_image| |
+|delete_image| |
+|get_image| |
+|list_images| #4 |
+
+
+### Управление дисками
 | Метод | Поддержка |
 | --- | --- |
 |attach_volume| |
-|copy_image| |
-|create_image| |
-|create_key_pair| #3 |
-|create_node|#7|
-|create_volume| |
 |create_volume_snapshot| |
-|delete_image| |
-|delete_key_pair| #2 |
-|deploy_node| :heavy_minus_sign: |
-|destroy_node| #8 |
-|destroy_volume| |
+|create_volume| |
 |destroy_volume_snapshot| |
+|destroy_volume| |
 |detach_volume| |
-|features| |
-|get_image| |
-|get_key_pair|:heavy_check_mark:|
-|import_key_pair_from_file| :heavy_minus_sign: |
-|import_key_pair_from_string| :heavy_minus_sign: |
-|list_images| :heavy_exclamation_mark: #4 |
-|list_key_pairs| :heavy_check_mark:|
-|list_locations| :heavy_exclamation_mark: #5 |
-|list_nodes| :heavy_check_mark:|
-|list_sizes| :heavy_exclamation_mark: #6 |
 |list_volume_snapshots| |
 |list_volumes| |
-|reboot_node| :heavy_minus_sign: |
-|start_node| :heavy_minus_sign: |
-|stop_node| :heavy_minus_sign: |
-|wait_until_running| |
+
+### Управление SSH ключами
+| Метод | Поддержка |
+| --- | --- |
+|create_key_pair| #3 |
+|delete_key_pair| #2 |
+|get_key_pair| :heavy_check_mark: |
+|import_key_pair_from_file| :heavy_minus_sign: |
+|import_key_pair_from_string| :heavy_minus_sign: |
+|list_key_pairs| :heavy_check_mark: |
+
+### Остальные
+| Метод | Поддержка |
+| --- | --- |
+|list_locations| #5 |
+|list_sizes| #6 |
+
 
 
 ## Методы DNS
 | Метод | Поддержка |
 | --- | --- |
-|list zones| |
-|list records| |
-|create zone| |
-|update zone| |
-|create record| |
-|update record| |
-|delete zone| |
-|delete record| |
+|create record| #19 |
+|create zone| #20 |
+|delete record| #22 |
+|delete zone| #21 |
+|list records| #26 |
+|list zones| #25 |
+|list_record_types||
+|get_record|#23|
+|get_zone|#24|
+|update record| #27 |
+|update zone| #28 |
+| export_zone_to_bind_format | |
+|export_zone_to_bind_zone_file ||
 
 # Документация к API
 https://developers.vscale.io/documentation/api/v1/
