@@ -8,13 +8,13 @@ attrs==21.4.0
     # via pytest
 cffi==1.15.0
     # via cryptography
-cryptography==36.0.1
+cryptography==36.0.2
     # via -r requirements-dev.in
 idna==3.3
     # via yarl
 iniconfig==1.1.1
     # via pytest
-multidict==5.2.0
+multidict==6.0.2
     # via yarl
 packaging==21.3
     # via pytest
@@ -24,19 +24,19 @@ py==1.11.0
     # via pytest
 pycparser==2.21
     # via cffi
-pyparsing==3.0.6
+pyparsing==3.0.7
     # via packaging
-pytest==6.2.5
+pytest==7.1.1
     # via -r requirements-dev.in
 pyyaml==6.0
     # via vcrpy
 six==1.16.0
     # via vcrpy
-toml==0.10.2
+tomli==2.0.1
     # via pytest
 vcrpy==4.1.1
     # via -r requirements-dev.in
-wrapt==1.13.3
+wrapt==1.14.0
     # via vcrpy
 yarl==1.7.2
     # via vcrpy
