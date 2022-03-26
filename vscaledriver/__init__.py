@@ -2,6 +2,7 @@ import datetime
 
 from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
+from libcloud.dns.base import DNSDriver, Zone
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 
 
@@ -109,3 +110,30 @@ class VscaleDriver(NodeDriver):
             nodes.append(node)
 
         return nodes
+
+
+class VscaleDns(DNSDriver):
+    connectionCls = VscaleConnection
+    name = "Vscale"
+    website = "https://vscale.io/"
+
+    def list_zones(self):
+        response = self.connection.request("v1/domains/")
+        zones = []
+        for n in response.object:
+            extra = dict(
+                tags=n["tags"],
+                create_date=n["create_date"],
+                cheange_date=n["change_date"],
+                user_id=n["user_id"],
+            )
+            zone = Zone(
+                id=n["id"],
+                domain=n["name"],
+                type="master",
+                ttl=None,
+                driver=self,
+                extra=extra,
+            )
+            zones.append(zone)
+        return zones

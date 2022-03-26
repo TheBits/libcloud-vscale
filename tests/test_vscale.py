@@ -3,7 +3,7 @@ import os
 
 import vcr
 
-from vscaledriver import VscaleDriver
+from vscaledriver import VscaleDns, VscaleDriver
 
 
 @vcr.use_cassette("./tests/fixtures/list_key_pairs.yaml", filter_headers=["X-Token"])
@@ -51,3 +51,11 @@ def test4_list_nodes():
     assert node1.id == "3547397"
     assert node1.created_at == datetime.datetime(2021, 3, 20, 5, 25, 10)
     assert node1.image.id == "ubuntu_20.04_64_001_master"
+
+
+@vcr.use_cassette("./tests/fixtures/list_zones.yaml", filter_headers=["X-Token"])
+def test5_list_zones_empty():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zones = conn.list_zones()
+    assert isinstance(zones, list)
+    assert not zones
