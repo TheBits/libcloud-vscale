@@ -1,13 +1,27 @@
 import datetime
+import json
 
 from libcloud.common.base import ConnectionKey, JsonResponse
+from libcloud.common.types import ProviderError
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
 from libcloud.dns.base import DNSDriver, Zone
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
+from libcloud.utils.py3 import httplib
+
+
+class VscaleJsonResponse(JsonResponse):
+    def parse_error(self):
+        body = super().parse_error()
+        http_code = int(self.status)
+
+        if httplib.CONFLICT:
+            raise ProviderError(value=body["error"], http_code=http_code, driver=self)
+
+        return body["error"]
 
 
 class VscaleConnection(ConnectionKey):
-    responseCls = JsonResponse
+    responseCls = VscaleJsonResponse
     host = "api.vscale.io"
 
     def add_default_headers(self, headers):
@@ -137,3 +151,29 @@ class VscaleDns(DNSDriver):
             )
             zones.append(zone)
         return zones
+
+    def create_zone(self, domain, type="master", ttl=None, extra=None) -> Zone:
+        payload = {"name": domain}
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json"}
+        response = self.connection.request("v1/domains/", data=data, headers=headers, method="POST")
+
+        if not response.success():
+            raise ProviderError(response.object["error"], response.status, driver=self)
+
+        result = response.object
+
+        zone_id = result.pop("id")
+        name = result.pop("name")
+        extra = result
+
+        zone = Zone(
+            id=zone_id,
+            domain=name,
+            type="master",
+            ttl=None,
+            driver=self,
+            extra=extra,
+        )
+
+        return zone

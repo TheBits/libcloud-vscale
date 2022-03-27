@@ -1,7 +1,9 @@
 import datetime
 import os
 
+import pytest
 import vcr
+from libcloud.common.types import ProviderError
 
 from vscaledriver import VscaleDns, VscaleDriver
 
@@ -59,3 +61,21 @@ def test5_list_zones_empty():
     zones = conn.list_zones()
     assert isinstance(zones, list)
     assert not zones
+
+
+@vcr.use_cassette("./tests/fixtures/dns_create_zone.yaml", filter_headers=["X-Token"])
+def test_dns_create_zone():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = conn.create_zone("cloudsea.ru")
+    assert zone
+    assert zone.id == "68155"
+    assert zone.domain == "cloudsea.ru"
+    assert zone.extra == {"user_id": 15872, "tags": [], "change_date": 1648384912, "create_date": 1648384912}
+
+
+@vcr.use_cassette("./tests/fixtures/dns_create_zone_alread_exist.yaml", filter_headers=["X-Token"])
+def test_dns_create_zone_alread_exist():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    with pytest.raises(ProviderError, match="domain_already_exists") as exc_info:
+        conn.create_zone("example.com")
+    assert exc_info.value.http_code == 409

@@ -59,7 +59,7 @@ libcloud драйвер для сервиса vscale.io.
 | Метод | Поддержка |
 | --- | --- |
 |create record| #19 |
-|create zone| #20 |
+|create zone| :heavy_check_mark: |
 |delete record| #22 |
 |delete zone| #21 |
 |list records| #26 |
