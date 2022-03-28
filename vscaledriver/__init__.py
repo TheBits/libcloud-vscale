@@ -14,7 +14,7 @@ class VscaleJsonResponse(JsonResponse):
         body = super().parse_error()
         http_code = int(self.status)
 
-        if httplib.CONFLICT:
+        if http_code in (httplib.CONFLICT, httplib.NOT_FOUND):
             raise ProviderError(value=body["error"], http_code=http_code, driver=self)
 
         return body["error"]
@@ -131,6 +131,26 @@ class VscaleDns(DNSDriver):
     name = "Vscale"
     website = "https://vscale.io/"
 
+    def get_zone(self, domain_id) -> Zone:
+        response = self.connection.request(f"v1/domains/{domain_id}")
+
+        result = response.object
+
+        zone_id = result.pop("id")
+        name = result.pop("name")
+        extra = result
+
+        zone = Zone(
+            id=zone_id,
+            domain=name,
+            type="master",
+            ttl=None,
+            driver=self,
+            extra=extra,
+        )
+
+        return zone
+
     def list_zones(self):
         response = self.connection.request("v1/domains/")
         zones = []
@@ -157,9 +177,6 @@ class VscaleDns(DNSDriver):
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json"}
         response = self.connection.request("v1/domains/", data=data, headers=headers, method="POST")
-
-        if not response.success():
-            raise ProviderError(response.object["error"], response.status, driver=self)
 
         result = response.object
 

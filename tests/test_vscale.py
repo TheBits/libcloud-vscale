@@ -79,3 +79,21 @@ def test_dns_create_zone_alread_exist():
     with pytest.raises(ProviderError, match="domain_already_exists") as exc_info:
         conn.create_zone("example.com")
     assert exc_info.value.http_code == 409
+
+
+@vcr.use_cassette("./tests/fixtures/dns_get_zone.yaml", filter_headers=["X-Token"])
+def test_dns_get_zone():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = conn.get_zone("cloudsea.ru")
+    assert zone
+    assert zone.id == "68155"
+    assert zone.domain == "cloudsea.ru"
+    assert zone.extra == {"user_id": 15872, "tags": [], "change_date": 1648384912, "create_date": 1648384912}
+
+
+@vcr.use_cassette("./tests/fixtures/dns_get_zone_not_folund.yaml", filter_headers=["X-Token"])
+def test_dns_get_zone_not_found():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    with pytest.raises(ProviderError, match="domain_not_found") as exc_info:
+        conn.get_zone("example.com")
+    assert exc_info.value.http_code == 404
