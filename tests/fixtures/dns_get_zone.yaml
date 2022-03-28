@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: GET
+    uri: https://api.vscale.io/v1/domains/cloudsea.ru
+  response:
+    body:
+      string: '{"user_id": 15872, "name": "cloudsea.ru", "tags": [], "change_date":
+        1648384912, "create_date": 1648384912, "id": 68155}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '120'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 28 Mar 2022 06:21:47 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWJBU/tO/nRUQTl9Ag==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+    status:
+      code: 200
+      message: OK
+version: 1
