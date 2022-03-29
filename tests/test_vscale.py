@@ -4,6 +4,7 @@ import os
 import pytest
 import vcr
 from libcloud.common.types import InvalidCredsError, ProviderError
+from libcloud.dns.base import Zone
 
 from vscaledriver import VscaleDns, VscaleDriver
 
@@ -107,4 +108,21 @@ def test_dns_get_zone_not_found():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     with pytest.raises(ProviderError, match="domain_not_found") as exc_info:
         conn.get_zone("example.com")
+    assert exc_info.value.http_code == 404
+
+
+@vcr.use_cassette("./tests/fixtures/dns_delete_zone.yaml", filter_headers=["X-Token"])
+def test_dns_delete_zone():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = conn.get_zone("example1.com")
+    result = conn.delete_zone(zone)
+    assert result
+
+
+@vcr.use_cassette("./tests/fixtures/dns_delete_zone_not_found.yaml", filter_headers=["X-Token"])
+def test_dns_delete_zone_not_found():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = Zone("123", "example.com", "master", ttl=None, driver=conn)
+    with pytest.raises(ProviderError, match="domain_not_found") as exc_info:
+        conn.delete_zone(zone)
     assert exc_info.value.http_code == 404

@@ -1,0 +1,111 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: GET
+    uri: https://api.vscale.io/v1/domains/example1.com
+  response:
+    body:
+      string: '{"user_id": 15872, "name": "example1.com", "tags": [], "change_date":
+        1648384867, "create_date": 1648384867, "id": 68154}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '121'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 29 Mar 2022 03:55:52 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWJCg0hOzHRTQX19Ag==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Cookie:
+      - cid=X9X/EWJCg0hOzHRTQX19Ag==
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: DELETE
+    uri: https://api.vscale.io/v1/domains/68154
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 29 Mar 2022 03:55:53 GMT
+      Server:
+      - vscale
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+    status:
+      code: 204
+      message: NO CONTENT
+version: 1
