@@ -2,7 +2,7 @@ import datetime
 import json
 
 from libcloud.common.base import ConnectionKey, JsonResponse
-from libcloud.common.types import ProviderError
+from libcloud.common.types import InvalidCredsError, ProviderError
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
 from libcloud.dns.base import DNSDriver, Zone
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
@@ -11,11 +11,14 @@ from libcloud.utils.py3 import httplib
 
 class VscaleJsonResponse(JsonResponse):
     def parse_error(self):
-        body = super().parse_error()
         http_code = int(self.status)
+        if http_code == httplib.FORBIDDEN:
+            raise InvalidCredsError("Invalid credentials")
+
+        body = super().parse_error()
 
         if http_code in (httplib.CONFLICT, httplib.NOT_FOUND):
-            raise ProviderError(value=body["error"], http_code=http_code, driver=self)
+            raise ProviderError(value=body["error"], http_code=http_code)
 
         return body["error"]
 
