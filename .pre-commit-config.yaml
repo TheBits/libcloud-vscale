@@ -79,7 +79,7 @@ repos:
         types: [python]
         args: ["--profile", "black", "--filter-files", "-l 128"]
   - repo: https://github.com/python/black
-    rev: 22.1.0
+    rev: 22.3.0
     hooks:
       - id: black
         args: ['--target-version', 'py35', '--line-length', '128']
