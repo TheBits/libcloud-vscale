@@ -3,7 +3,7 @@ import os
 
 import pytest
 import vcr
-from libcloud.common.types import ProviderError
+from libcloud.common.types import InvalidCredsError, ProviderError
 
 from vscaledriver import VscaleDns, VscaleDriver
 
@@ -55,12 +55,23 @@ def test4_list_nodes():
     assert node1.image.id == "ubuntu_20.04_64_001_master"
 
 
-@vcr.use_cassette("./tests/fixtures/list_zones.yaml", filter_headers=["X-Token"])
-def test5_list_zones_empty():
+@vcr.use_cassette("./tests/fixtures/dns_list_zones_empty.yaml", filter_headers=["X-Token"])
+def test_dns_list_zones_empty():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     zones = conn.list_zones()
     assert isinstance(zones, list)
     assert not zones
+
+
+@vcr.use_cassette(
+    "./tests/fixtures/dns_list_zones_unauthorized.yaml",
+    filter_headers=["X-Token"],
+    decode_compressed_response=True,
+)
+def test5_list_zones_unauthorized():
+    conn = VscaleDns(key="key")
+    with pytest.raises(InvalidCredsError):
+        conn.list_zones()
 
 
 @vcr.use_cassette("./tests/fixtures/dns_create_zone.yaml", filter_headers=["X-Token"])
