@@ -22,6 +22,12 @@ class VscaleJsonResponse(JsonResponse):
 
         return body["error"]
 
+    def success(self):
+        # При успешном DELETE возвращается NO CONTENT
+        if self.status == httplib.NO_CONTENT:
+            return True
+        return super().success()
+
 
 class VscaleConnection(ConnectionKey):
     responseCls = VscaleJsonResponse
@@ -197,3 +203,7 @@ class VscaleDns(DNSDriver):
         )
 
         return zone
+
+    def delete_zone(self, zone) -> bool:
+        response = self.connection.request(f"v1/domains/{zone.id}", method="DELETE")
+        return response.status == httplib.NO_CONTENT
