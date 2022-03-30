@@ -4,7 +4,7 @@ import json
 from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.common.types import InvalidCredsError, ProviderError
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
-from libcloud.dns.base import DNSDriver, Zone
+from libcloud.dns.base import DNSDriver, Record, Zone
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 from libcloud.utils.py3 import httplib
 
@@ -207,3 +207,30 @@ class VscaleDns(DNSDriver):
     def delete_zone(self, zone) -> bool:
         response = self.connection.request(f"v1/domains/{zone.id}", method="DELETE")
         return response.status == httplib.NO_CONTENT
+
+    def list_records(self, zone: Zone) -> list[Record]:
+        response = self.connection.request(f"v1/domains/{zone.id}/records/")
+        result = response.object
+
+        records = []
+        for r in result:
+            zone_id = r.pop("id")
+            name = r.pop("name")
+            record_type = r.pop("type")
+            data = r.pop("content")
+            ttl = r.pop("ttl", None)
+            extra = r
+
+            record = Record(
+                id=zone_id,
+                name=name,
+                type=record_type,
+                data=data,
+                zone=zone,
+                driver=self,
+                ttl=ttl,
+                extra=extra,
+            )
+            records.append(record)
+
+        return records

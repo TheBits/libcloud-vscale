@@ -126,3 +126,12 @@ def test_dns_delete_zone_not_found():
     with pytest.raises(ProviderError, match="domain_not_found") as exc_info:
         conn.delete_zone(zone)
     assert exc_info.value.http_code == 404
+
+
+@vcr.use_cassette("./tests/fixtures/dns_list_records_example.yaml", filter_headers=["X-Token"])
+def test_dns_list_records_example():
+    # используется пример из документации
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = Zone("123", "example.com", "master", ttl=None, driver=conn)
+    records = conn.list_records(zone)
+    assert len(records) == 3

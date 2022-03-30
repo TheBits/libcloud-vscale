@@ -62,7 +62,7 @@ libcloud драйвер для сервиса vscale.io.
 |create zone| :heavy_check_mark: |
 |delete record| #22 |
 |delete zone| :heavy_check_mark: |
-|list records| #26 |
+|list records| :heavy_check_mark: |
 |list zones| :heavy_check_mark: |
 |list_record_types||
 |get_record|#23|
