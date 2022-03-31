@@ -135,3 +135,13 @@ def test_dns_list_records_example():
     zone = Zone("123", "example.com", "master", ttl=None, driver=conn)
     records = conn.list_records(zone)
     assert len(records) == 3
+
+
+@vcr.use_cassette("./tests/fixtures/dns_get_record.yaml", filter_headers=["X-Token"])
+def test_dns_get_record():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    zone = conn.get_zone("cloudsea.ru")
+    records = conn.list_records(zone)
+    reference = records[0]
+    record = conn.get_record(zone.id, reference.id)
+    assert reference.id == record.id
