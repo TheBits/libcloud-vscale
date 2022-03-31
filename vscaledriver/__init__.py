@@ -140,7 +140,7 @@ class VscaleDns(DNSDriver):
     name = "Vscale"
     website = "https://vscale.io/"
 
-    def get_zone(self, domain_id) -> Zone:
+    def get_zone(self, domain_id: str) -> Zone:
         response = self.connection.request(f"v1/domains/{domain_id}")
 
         result = response.object
@@ -234,3 +234,28 @@ class VscaleDns(DNSDriver):
             records.append(record)
 
         return records
+
+    def get_record(self, zone_id: str, record_id: str):
+        response = self.connection.request(f"v1/domains/{zone_id}/records/{record_id}")
+        result = response.object
+
+        result_id = str(result.pop("id"))
+        name = result.pop("name")
+        result_type = result.pop("type")
+        data = result.pop("content")
+        ttl = result.pop("ttl", None)
+        extra = result
+
+        zone = self.get_zone(zone_id)
+
+        record = Record(
+            id=result_id,
+            name=name,
+            type=result_type,
+            data=data,
+            zone=zone,
+            driver=self,
+            ttl=ttl,
+            extra=extra,
+        )
+        return record
