@@ -259,3 +259,35 @@ class VscaleDns(DNSDriver):
             extra=extra,
         )
         return record
+
+    def create_record(self, name, zone: Zone, type, data, extra=None):
+        payload = {
+            "id": zone.id,
+            "name": name,
+            "type": type,
+            "ttl": 604800,
+            "content": data,
+        }
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json"}
+        response = self.connection.request(f"v1/domains/{zone.id}/records/", method="POST", headers=headers, data=data)
+
+        result = response.object
+        result_id = str(result.pop("id"))
+        name = result.pop("name")
+        result_type = result.pop("type")
+        data = result.pop("content")
+        ttl = result.pop("ttl")
+        extra = result
+
+        record = Record(
+            id=result_id,
+            name=name,
+            type=result_type,
+            data=data,
+            zone=zone,
+            driver=self,
+            ttl=ttl,
+            extra=extra,
+        )
+        return record
