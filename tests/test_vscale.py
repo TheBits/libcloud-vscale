@@ -145,3 +145,23 @@ def test_dns_get_record():
     reference = records[0]
     record = conn.get_record(zone.id, reference.id)
     assert reference.id == record.id
+
+
+@vcr.use_cassette("./tests/fixtures/dns_create_record.yaml", filter_headers=["X-Token"])
+def test_dns_create_record():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    name = "cloudsea.ru"
+    zone = conn.get_zone(name)
+
+    data = "ns3.vscale.io"
+    record_type = "NS"
+    record = conn.create_record(name, zone, record_type, data)
+    records = conn.list_records(zone)
+
+    for r in records:
+        if record.id == r.id:
+            assert r.name == record.name
+            assert r.data == record.data
+            break
+    else:
+        pytest.fail("no record found")
