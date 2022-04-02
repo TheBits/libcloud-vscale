@@ -84,3 +84,8 @@ https://developers.vscale.io/documentation/api/v1/
 В проекте настроена автоматическая проверка линтерами и тестами.
 
 Линтеры запускаются в `pre-commit`, тесты в `pytest`.
+
+Установка:
+```bash
+$ pre-commit install --hook-type pre-commit --hook-type pre-push
+```

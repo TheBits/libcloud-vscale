@@ -4,10 +4,10 @@ repos:
     hooks:
       - id: no-commit-to-branch
         args: [--branch, main]
+        stages: [push]
       - id: check-added-large-files
       - id: check-ast
       - id: check-builtin-literals
-      - id: check-byte-order-marker
       - id: check-case-conflict
       - id: check-docstring-first
       - id: check-executables-have-shebangs
@@ -23,10 +23,11 @@ repos:
       - id: fix-byte-order-marker
       - id: forbid-new-submodules
       - id: mixed-line-ending
+      - id: name-tests-test
       - id: trailing-whitespace
         args: ['--markdown-linebreak-ext=md']
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.1
+    rev: v2.2.2
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/asottile/pyupgrade
