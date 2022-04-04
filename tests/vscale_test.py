@@ -180,4 +180,4 @@ def test_dns_delete_record():
     result = conn.delete_record(record)
     assert result
 
-    assert not any(r.data == "data" for r in zone.list_records())
+    assert not any(r.data == data for r in zone.list_records())
