@@ -85,7 +85,10 @@ https://developers.vscale.io/documentation/api/v1/
 
 Линтеры запускаются в `pre-commit`, тесты в `pytest`.
 
-Установка:
+### Установка
+
+Github Actions запускаются в `stage: commit`, поэтому в `.pre-commit-config.yaml` проверка `id: no-commit-to-branch` установлена в `stage: push`. Что бы проверка запускалась локально и не срабатывала в CI. Локально надо установить pre-commit хуки на пуши и на коммиты следующей командой:
+
 ```bash
 $ pre-commit install --hook-type pre-commit --hook-type pre-push
 ```
