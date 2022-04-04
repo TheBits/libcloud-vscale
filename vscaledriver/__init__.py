@@ -291,3 +291,7 @@ class VscaleDns(DNSDriver):
             extra=extra,
         )
         return record
+
+    def delete_record(self, record):
+        response = self.connection.request(f"v1/domains/{record.zone.id}/records/{record.id}", method="DELETE")
+        return response.status == httplib.NO_CONTENT
