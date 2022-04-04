@@ -165,3 +165,19 @@ def test_dns_create_record():
             break
     else:
         pytest.fail("no record found")
+
+
+@vcr.use_cassette("./tests/fixtures/dns_delete_record.yaml", filter_headers=["X-Token"])
+def test_dns_delete_record():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    name = "cloudsea.ru"
+    zone = conn.get_zone(name)
+
+    data = "ns33.vscale.io"
+    record_type = "NS"
+    record = conn.create_record(name, zone, record_type, data)
+
+    result = conn.delete_record(record)
+    assert result
+
+    assert not any(r.data == "data" for r in zone.list_records())
