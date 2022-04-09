@@ -142,6 +142,18 @@ class VscaleDns(DNSDriver):
     name = "Vscale"
     website = "https://vscale.io/"
 
+    RECORD_TYPE_MAP = {
+        RecordType.SOA: "SOA",
+        RecordType.NS: "NS",
+        RecordType.A: "A",
+        RecordType.AAAA: "AAAA",
+        RecordType.CNAME: "CNAME",
+        RecordType.SRV: "SRV",
+        RecordType.MX: "MX",
+        RecordType.TXT: "TXT",
+        RecordType.SPF: "SPF",
+    }
+
     def get_zone(self, domain_id: str) -> Zone:
         response = self.connection.request(f"v1/domains/{domain_id}")
 
