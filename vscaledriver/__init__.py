@@ -1,10 +1,12 @@
 import datetime
 import json
+from typing import Optional
 
 from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.common.types import InvalidCredsError, ProviderError
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
 from libcloud.dns.base import DNSDriver, Record, Zone
+from libcloud.dns.types import RecordAlreadyExistsError, RecordDoesNotExistError, RecordError, RecordType, ZoneDoesNotExistError
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 from libcloud.utils.py3 import httplib
 
@@ -295,3 +297,46 @@ class VscaleDns(DNSDriver):
     def delete_record(self, record):
         response = self.connection.request(f"v1/domains/{record.zone.id}/records/{record.id}", method="DELETE")
         return response.status == httplib.NO_CONTENT
+
+    def update_record(self, record, name: Optional[str], type: Optional[RecordType], data: Optional[str], extra=None):
+
+        payload = {}
+        payload["name"] = record.name if name is None else name
+        payload["type"] = record.type if type is None else type
+        payload["content"] = record.data if data is None else data
+        print(payload)
+
+        url = f"v1/domains/{record.zone.id}/records/{record.id}"
+        headers = {"Content-Type": "application/json"}
+        data = json.dumps(payload)
+        try:
+            response = self.connection.request(url, method="PUT", headers=headers, data=data)
+        except ProviderError as e:
+            if e.value == "domain_not_found":
+                raise ZoneDoesNotExistError(e.value, self, record.zone.id)
+            if e.value == "RecordDoesNotExistError":
+                raise RecordDoesNotExistError(e.value, self, record.id)
+            if e.value == "record_already_exists":
+                raise RecordAlreadyExistsError(e.value, self, record.id)
+            raise RecordError(e.value, self, record.id)
+
+        result = response.object
+        result_id = str(result.pop("id"))
+        name = result.pop("name")
+        result_type = result.pop("type")
+        data = result.pop("content")
+        ttl = result.pop("ttl")
+        extra = result
+
+        record = Record(
+            id=result_id,
+            name=name,
+            type=result_type,
+            data=data,
+            zone=record.zone,
+            driver=self,
+            ttl=ttl,
+            extra=extra,
+        )
+
+        return record
