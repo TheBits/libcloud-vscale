@@ -284,7 +284,12 @@ class VscaleDns(DNSDriver):
         }
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json"}
-        response = self.connection.request(f"v1/domains/{zone.id}/records/", method="POST", headers=headers, data=data)
+        url = f"v1/domains/{zone.id}/records/"
+        try:
+            response = self.connection.request(url, method="POST", headers=headers, data=data)
+        except ProviderError as e:
+            if e.value == "record_already_exists":
+                raise RecordAlreadyExistsError(e.value, self, record_id=None)
 
         result = response.object
         result_id = str(result.pop("id"))
