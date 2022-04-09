@@ -4,7 +4,8 @@ import os
 import pytest
 import vcr
 from libcloud.common.types import InvalidCredsError, ProviderError
-from libcloud.dns.base import Zone
+from libcloud.dns.base import Record, Zone
+from libcloud.dns.types import RecordType, ZoneDoesNotExistError
 
 from vscaledriver import VscaleDns, VscaleDriver
 
@@ -181,3 +182,34 @@ def test_dns_delete_record():
     assert result
 
     assert not any(r.data == data for r in zone.list_records())
+
+
+@vcr.use_cassette("./tests/fixtures/dns_update_record.yaml", filter_headers=["X-Token"])
+def test_dns_update_record():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    name = "cloudsea.ru"
+    zone = conn.get_zone(name)
+
+    data = "ns20.vscale.io"
+    record_type = "NS"
+    record = conn.create_record(name, zone, record_type, data)
+
+    update_data = "ns10.vscale.io"
+    actual = record.update(data=update_data)
+
+    assert actual.data == update_data
+    assert actual.id == record.id
+
+    conn.delete_record(actual)
+
+
+@vcr.use_cassette("./tests/fixtures/dns_update_record_zone_does_not_exist.yaml", filter_headers=["X-Token"])
+def test_dns_update_record_zone_does_not_exist():
+    conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
+    name = "example.com"
+    data = "ns10.vscale.io"
+    zone = Zone("123", name, "master", ttl=None, driver=conn)
+    record = Record("111", name, RecordType.A, data, zone, conn)
+
+    with pytest.raises(ZoneDoesNotExistError, match="domain_not_found"):
+        record.update(name=data)
