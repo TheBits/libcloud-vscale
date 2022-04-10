@@ -219,7 +219,13 @@ class VscaleDns(DNSDriver):
         return zone
 
     def delete_zone(self, zone) -> bool:
-        response = self.connection.request(f"v1/domains/{zone.id}", method="DELETE")
+        try:
+            response = self.connection.request(f"v1/domains/{zone.id}", method="DELETE")
+        except ProviderError as e:
+            if e.value == "domain_not_found":
+                raise ZoneDoesNotExistError(e.value, self, zone.id)
+            raise
+
         return response.status == httplib.NO_CONTENT
 
     def list_records(self, zone: Zone) -> list[Record]:
@@ -290,6 +296,7 @@ class VscaleDns(DNSDriver):
         except ProviderError as e:
             if e.value == "record_already_exists":
                 raise RecordAlreadyExistsError(e.value, self, record_id=None)
+            raise
 
         result = response.object
         result_id = str(result.pop("id"))
@@ -331,11 +338,21 @@ class VscaleDns(DNSDriver):
         except ProviderError as e:
             if e.value == "domain_not_found":
                 raise ZoneDoesNotExistError(e.value, self, record.zone.id)
-            if e.value == "RecordDoesNotExistError":
+            if e.value == "record_not_found":
                 raise RecordDoesNotExistError(e.value, self, record.id)
             if e.value == "record_already_exists":
                 raise RecordAlreadyExistsError(e.value, self, record.id)
-            raise RecordError(e.value, self, record.id)
+            if e.value in (
+                "cname_record_conflict",
+                "record_does_not_belong_to_domain",
+                "cant_add_soa",
+                "string_required",
+                "bad_zone_name",
+                "bad_record_name",
+                "zone_name_too_long",
+            ):
+                raise RecordError(e.value, self, record.id)
+            raise
 
         result = response.object
         result_id = str(result.pop("id"))
