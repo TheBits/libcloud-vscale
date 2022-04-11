@@ -1,0 +1,111 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: GET
+    uri: https://api.vscale.io/v1/sshkeys
+  response:
+    body:
+      string: '[{"id":100318,"name":"test key","key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDdlUgMYerMvfRdmMWOSYbbVTkq5kjawV8nwQq0Ify6P
+        user@barracuda"}]'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '137'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 11 Apr 2022 15:39:29 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWJUS7FOzHRTSVErAg==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+      X-Request-Id:
+      - 6W2JMbka67bv_RnHexfBA
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Cookie:
+      - cid=X9X/EWJUS7FOzHRTSVErAg==
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: DELETE
+    uri: https://api.vscale.io/v1/sshkeys/100318
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Date:
+      - Mon, 11 Apr 2022 15:39:29 GMT
+      Server:
+      - vscale
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - origin
+      X-Request-Id:
+      - 9LtWgBiG4GyPOTIRp6r-e
+    status:
+      code: 204
+      message: No Content
+version: 1
