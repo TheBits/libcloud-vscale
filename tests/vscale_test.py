@@ -237,3 +237,15 @@ def test_dns_create_record_already_exists():
         conn.create_record(name, zone, RecordType.NS, data)
 
     record.delete()
+
+
+@vcr.use_cassette("./tests/fixtures/compute_create_pair.yaml", filter_headers=["X-Token"])
+def test_compute_create_pair():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    name = "example key"
+    public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDdlUgMYerMvfRdmMWOSYbbVTkq5kjawV8nwQq0Ify6P user@archlinux"
+
+    kp = conn.create_key_pair(name, public_key)
+    assert kp.name == name
+    assert kp.public_key == kp.public_key
+    assert kp.extra["id"] > 0
