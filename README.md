@@ -43,7 +43,7 @@ libcloud драйвер для сервиса vscale.io.
 
 | Метод                       | Поддержка          |
 | --------------------------- | ------------------ |
-| create_key_pair             | #3                 |
+| create_key_pair             | :heavy_check_mark: |
 | delete_key_pair             | #2                 |
 | get_key_pair                | :heavy_check_mark: |
 | import_key_pair_from_file   | :heavy_minus_sign: |

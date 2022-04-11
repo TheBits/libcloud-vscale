@@ -101,6 +101,26 @@ class VscaleDriver(NodeDriver):
                 return kp
         return None
 
+    def create_key_pair(self, name: str, public_key: str) -> KeyPair:
+        payload = {
+            "key": public_key,
+            "name": name,
+        }
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json"}
+        response = self.connection.request("v1/sshkeys", method="POST", headers=headers, data=data)
+        kp = response.object
+
+        key = kp.pop("key")
+        key_pair = KeyPair(
+            name=kp.pop("name"),
+            public_key=key,
+            fingerprint=get_pubkey_openssh_fingerprint(key),
+            driver=self,
+            extra=kp,
+        )
+        return key_pair
+
     def list_nodes(self):
         response = self.connection.request("v1/scalets")
         nodes = []
@@ -328,7 +348,6 @@ class VscaleDns(DNSDriver):
         payload["name"] = record.name if name is None else name
         payload["type"] = record.type if type is None else type
         payload["content"] = record.data if data is None else data
-        print(payload)
 
         url = f"v1/domains/{record.zone.id}/records/{record.id}"
         headers = {"Content-Type": "application/json"}
