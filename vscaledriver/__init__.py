@@ -121,6 +121,11 @@ class VscaleDriver(NodeDriver):
         )
         return key_pair
 
+    def delete_key_pair(self, key_pair: KeyPair):
+        key_pair_id = key_pair.extra["id"]
+        response = self.connection.request(f"v1/sshkeys/{key_pair_id}", method="DELETE")
+        return response.status == httplib.NO_CONTENT
+
     def list_nodes(self):
         response = self.connection.request("v1/scalets")
         nodes = []

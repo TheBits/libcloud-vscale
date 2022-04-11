@@ -31,18 +31,26 @@ def test1_get_key_pair():
     assert key.extra["id"] == 46329
 
 
-@vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
-def test2_get_key_pair():
+@vcr.use_cassette("./tests/fixtures/compute_get_key_pair.yaml", filter_headers=["X-Token"])
+def test_compute_get_key_pair():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    key = conn.get_key_pair("test key")
+    assert key
+
+
+@vcr.use_cassette("./tests/fixtures/compute_get_key_pair_empty.yaml", filter_headers=["X-Token"])
+def test_compute_get_key_pair_empty():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     key = conn.get_key_pair("MissingName")
     assert key is None
 
 
-@vcr.use_cassette("./tests/fixtures/get_key_pair_empty.yaml", filter_headers=["X-Token"])
-def test3_get_key_pair():
+@vcr.use_cassette("./tests/fixtures/compute_delete_key_pair.yaml", filter_headers=["X-Token"])
+def test_compute_delete_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
-    key = conn.get_key_pair("x200s")
-    assert key is None
+    kp = conn.get_key_pair("test key")
+    result = conn.delete_key_pair(kp)
+    assert result
 
 
 @vcr.use_cassette("./tests/fixtures/list_nodes.yaml", filter_headers=["X-Token"])
