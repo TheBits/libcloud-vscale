@@ -6,7 +6,14 @@ from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.common.types import InvalidCredsError, ProviderError
 from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
 from libcloud.dns.base import DNSDriver, Record, Zone
-from libcloud.dns.types import RecordAlreadyExistsError, RecordDoesNotExistError, RecordError, RecordType, ZoneDoesNotExistError
+from libcloud.dns.types import (
+    RecordAlreadyExistsError,
+    RecordDoesNotExistError,
+    RecordError,
+    RecordType,
+    ZoneDoesNotExistError,
+    ZoneError,
+)
 from libcloud.utils.publickey import get_pubkey_openssh_fingerprint
 from libcloud.utils.py3 import httplib
 
@@ -398,3 +405,51 @@ class VscaleDns(DNSDriver):
         )
 
         return record
+
+    def update_zone(
+        self,
+        zone: Zone,
+        domain: Optional[str],
+        type: Optional[str] = "master",
+        ttl: Optional[int] = None,
+        extra: Optional[dict] = None,
+    ) -> Zone:
+        """Обновляет зону"""
+
+        # INFO: TTL и domain нельзя обновить
+        # TODO: Сделать warning на TTL и domain
+
+        payload = {}
+        if extra:
+            payload.update(extra)
+        if type is not None:
+            payload["type"] = type
+
+        url = f"v1/domains/{zone.id}"
+        headers = {"Content-Type": "application/json"}
+        data = json.dumps(payload)
+        try:
+            response = self.connection.request(url, method="PATCH", headers=headers, data=data)
+        except ProviderError as e:
+            if e.value == "domain_not_found":
+                raise ZoneDoesNotExistError(e.value, self, zone.id)
+            if e.value == "tag_not_found":
+                raise ZoneError(e.value, self, zone.id)
+            raise
+
+        result = response.object
+
+        zone_id = result.pop("id")
+        name = result.pop("name")
+        extra = result
+
+        zone = Zone(
+            id=zone_id,
+            domain=name,
+            type="master",
+            ttl=None,
+            driver=self,
+            extra=extra,
+        )
+
+        return zone
