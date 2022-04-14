@@ -1,0 +1,62 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.0 (Vscale) '
+    method: DELETE
+    uri: https://api.vscale.io/v1/scalets/123567890
+  response:
+    body:
+      string: '{"error":{"code":"INTERNAL_SERVER_ERROR","status":500,"message":"Internal
+        server error"}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '89'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 14 Apr 2022 04:48:45 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWJXp61PBnRWTRjxAg==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      Vscale-Error-Message:
+      - Internal server error
+      X-Frame-Options:
+      - origin
+      X-Request-Id:
+      - Pa7CIvhxiC7NUdTB0yEKV
+    status:
+      code: 500
+      message: Internal Server Error
+version: 1
