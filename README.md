@@ -59,25 +59,27 @@ libcloud драйвер для сервиса vscale.io.
 
 ## Методы DNS
 
-| Метод                         | Поддержка          |
-| ----------------------------- | ------------------ |
-| create record                 | :heavy_check_mark: |
-| create zone                   | :heavy_check_mark: |
-| delete record                 | :heavy_check_mark: |
-| delete zone                   | :heavy_check_mark: |
-| list records                  | :heavy_check_mark: |
-| list zones                    | :heavy_check_mark: |
-| list_record_types             |                    |
-| get_record                    | :heavy_check_mark: |
-| get_zone                      | :heavy_check_mark: |
-| update record                 | :heavy_check_mark: |
-| update zone                   | :heavy_check_mark: |
-| export_zone_to_bind_format    |                    |
-| export_zone_to_bind_zone_file |                    |
+| Метод                         | Поддержка          | Примечание |
+| ----------------------------- | ------------------ | ---------- |
+| create record                 | :heavy_check_mark: |            |
+| create zone                   | :heavy_check_mark: |            |
+| delete record                 | :heavy_check_mark: |            |
+| delete zone                   | :heavy_check_mark: |            |
+| list records                  | :heavy_check_mark: |            |
+| list zones                    | :heavy_check_mark: |            |
+| list_record_types             | :heavy_check_mark: | 1          |
+| get_record                    | :heavy_check_mark: |            |
+| get_zone                      | :heavy_check_mark: |            |
+| update record                 | :heavy_check_mark: |            |
+| update zone                   | :heavy_check_mark: |            |
+| export_zone_to_bind_format    |                    |            |
+| export_zone_to_bind_zone_file |                    |            |
+
+1. Поддерживаемые типы получены из документации, в описании метода [`Domains_Records - Создать ресурсную запись для домена.`](https://developers.vds.selectel.ru/documentation/api/v1/#api-Domains_Records-CreateDomainRecord). Возможно поддерживаются и другие типы записей.
 
 # Документация к API
 
-https://developers.vscale.io/documentation/api/v1/
+[https://developers.vscale.io/documentation/api/v1/](https://developers.vscale.io/documentation/api/v1/)
 
 ## Разработка
 
