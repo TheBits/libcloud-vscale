@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: no-commit-to-branch
         args: [--branch, main]
@@ -27,11 +27,11 @@ repos:
       - id: trailing-whitespace
         args: ['--markdown-linebreak-ext=md']
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.2
+    rev: v2.2.3
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.1
+    rev: v2.32.0
     hooks:
       - id: pyupgrade
         args: ['--py3-plus']
@@ -62,7 +62,7 @@ repos:
       - id: python-safety-dependencies-check
         stages: [manual]
   - repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
-    rev: v1.0.5
+    rev: v1.0.6
     hooks:
       - id: python-bandit-vulnerability-check
         stages: [manual]
@@ -85,7 +85,7 @@ repos:
       - id: black
         args: ['--target-version', 'py35', '--line-length', '128']
   - repo: https://github.com/jazzband/pip-tools
-    rev: 6.5.1
+    rev: 6.6.0
     hooks:
       - id: pip-compile
         name: pip-compile requirements-dev.in
