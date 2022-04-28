@@ -1,3 +1,3 @@
-cryptography
+cryptography # ssh-key fingerprint
 pytest
 vcrpy
