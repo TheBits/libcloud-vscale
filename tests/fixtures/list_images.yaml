@@ -11,13 +11,12 @@ interactions:
       Host:
       - api.vscale.io
       User-Agent:
-      - 'libcloud/3.0.0 (Vscale) '
+      - 'libcloud/3.5.1 (Vscale) '
     method: GET
     uri: https://api.vscale.io/v1/images
   response:
     body:
-      string: "<html>\r\n<head><title>302 Found</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>302
-        Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+      string: '[{"id":"ubuntu_18.04_64_001_master","description":"Ubuntu_18.04_64_001_master","size":2113,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"centos_7_64_001_master","description":"Centos_7_64_001_master","size":1804,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_ajenti","description":"Ubuntu_20.04_64_001_ajenti","size":2654,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_16.04_64_001_master","description":"Ubuntu_16.04_64_001_master","size":1751,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_docker","description":"Ubuntu_20.04_64_001_docker","size":2311,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_10_64_001_fastpanel","description":"Debian_10_64_001_fastpanel","size":5120,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_bitrix","description":"Ubuntu_20.04_64_001_bitrix","size":2303,"locations":["spb0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_mongodb","description":"Ubuntu_20.04_64_001_mongodb","size":2664,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_14.04_64_001_preseed","description":"Ubuntu_14.04_64_001_preseed","size":1372,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_lamp","description":"Ubuntu_20.04_64_001_lamp","size":2712,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_nodejs","description":"Ubuntu_20.04_64_001_nodejs","size":2506,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_gitlab","description":"Ubuntu_20.04_64_001_gitlab","size":4881,"locations":["spb0"],"rplans":["huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_gogs","description":"Ubuntu_20.04_64_001_gogs","size":2686,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_wordpress","description":"Ubuntu_20.04_64_001_wordpress","size":2302,"locations":["spb0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_django","description":"Ubuntu_20.04_64_001_django","size":2303,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_redmine","description":"Ubuntu_20.04_64_001_redmine","size":5120,"locations":["spb0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_redis","description":"Ubuntu_20.04_64_001_redis","size":2445,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_jenkins","description":"Ubuntu_20.04_64_001_jenkins","size":2400,"locations":["spb0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"debian_9_64_001_master","description":"Debian_9_64_001_master","size":1084,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"CentOS_8_64_001_master","description":"CentOS_8_64_001_master","size":1041,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_10_64_001_master","description":"Debian_10_64_001_master","size":1176,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_master","description":"Ubuntu_20.04_64_001_master","size":2425,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"Fedora_32_64_001_master","description":"Fedora_32_64_001_master","size":1966,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_11_64_001_master","description":"Debian_11_64_001_master","size":1124,"locations":["spb0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_18.04_64_001_master","description":"Ubuntu_18.04_64_001_master","size":2113,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"centos_7_64_001_master","description":"Centos_7_64_001_master","size":1804,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_ajenti","description":"Ubuntu_20.04_64_001_ajenti","size":2654,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_16.04_64_001_master","description":"Ubuntu_16.04_64_001_master","size":1751,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_docker","description":"Ubuntu_20.04_64_001_docker","size":2311,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_10_64_001_fastpanel","description":"Debian_10_64_001_fastpanel","size":5120,"locations":["msk0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_bitrix","description":"Ubuntu_20.04_64_001_bitrix","size":2303,"locations":["msk0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_mongodb","description":"Ubuntu_20.04_64_001_mongodb","size":2664,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_14.04_64_001_preseed","description":"Ubuntu_14.04_64_001_preseed","size":1372,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_lamp","description":"Ubuntu_20.04_64_001_lamp","size":2712,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_nodejs","description":"Ubuntu_20.04_64_001_nodejs","size":2506,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_gitlab","description":"Ubuntu_20.04_64_001_gitlab","size":4881,"locations":["msk0"],"rplans":["huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_gogs","description":"Ubuntu_20.04_64_001_gogs","size":2686,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_wordpress","description":"Ubuntu_20.04_64_001_wordpress","size":2302,"locations":["msk0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_django","description":"Ubuntu_20.04_64_001_django","size":2303,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_redmine","description":"Ubuntu_20.04_64_001_redmine","size":5120,"locations":["msk0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_redis","description":"Ubuntu_20.04_64_001_redis","size":2445,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_jenkins","description":"Ubuntu_20.04_64_001_jenkins","size":2400,"locations":["msk0"],"rplans":["medium","large","huge","monster"],"active":true},{"id":"debian_9_64_001_master","description":"Debian_9_64_001_master","size":1084,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"CentOS_8_64_001_master","description":"CentOS_8_64_001_master","size":1041,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_10_64_001_master","description":"Debian_10_64_001_master","size":1176,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"ubuntu_20.04_64_001_master","description":"Ubuntu_20.04_64_001_master","size":2425,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"Fedora_32_64_001_master","description":"Fedora_32_64_001_master","size":1966,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true},{"id":"debian_11_64_001_master","description":"Debian_11_64_001_master","size":1124,"locations":["msk0"],"rplans":["small","medium","large","huge","monster"],"active":true}]'
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -36,76 +35,23 @@ interactions:
       - '1728000'
       Connection:
       - keep-alive
-      Content-Length:
-      - '154'
       Content-Type:
-      - text/html
+      - application/json; charset=utf-8
       Date:
-      - Sun, 01 May 2022 12:44:13 GMT
-      Location:
-      - https://api.vscale.io/auth
+      - Sun, 01 May 2022 13:04:27 GMT
       Server:
       - vscale
       Set-Cookie:
-      - cid=X9X/EWJugJ1PBnRWVc7nAg==; path=/
+      - cid=X9X/EWJuhVtOzHRTUv0sAg==; path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubdomains; preload
+      Transfer-Encoding:
+      - chunked
       X-Frame-Options:
       - origin
+      X-Request-Id:
+      - 7NGlZZ8koq3BK_2czQ0SS
     status:
-      code: 302
-      message: Moved Temporarily
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip,deflate
-      Connection:
-      - keep-alive
-      Cookie:
-      - cid=X9X/EWJugJ1PBnRWVc7nAg==
-      Host:
-      - api.vscale.io
-      User-Agent:
-      - 'libcloud/3.0.0 (Vscale) '
-    method: GET
-    uri: https://api.vscale.io/auth
-  response:
-    body:
-      string: "{\n  \"error\": \"Unauthorized\", \n  \"status\": \"error\"\n}"
-    headers:
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Allow-Headers:
-      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
-        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
-        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
-        X-ExperimentalApi, Referer
-      Access-Control-Allow-Methods:
-      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
-      Access-Control-Allow-Origin:
-      - https://vscale.io
-      Access-Control-Expose-Headers:
-      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
-      Access-Control-Max-Age:
-      - '1728000'
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '51'
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 01 May 2022 12:44:13 GMT
-      Server:
-      - vscale
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubdomains; preload
-      X-Frame-Options:
-      - origin
-    status:
-      code: 401
-      message: UNAUTHORIZED
+      code: 200
+      message: OK
 version: 1
