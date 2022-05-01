@@ -52,6 +52,16 @@ def test_list_images():
     assert key.name == "Debian_11_64_001_master"
 
 
+@vcr.use_cassette("./tests/fixtures/list_locations.yaml", filter_headers=["X-Token"])
+def test_list_locations():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    keys = conn.list_locations()
+    key = keys.pop()
+    assert key.id == "msk0"
+    assert key.name == "msk_description"
+    assert key.country == "RU"
+
+
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
 def test1_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))

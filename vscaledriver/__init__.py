@@ -59,22 +59,13 @@ class VscaleDriver(NodeDriver):
     }
 
     def list_locations(self):
-        response = self.connection.request("api/datacenter")
-        country = {
-            1: "RU",
-            2: "CH",
-            3: "GB",
-            5: "RU",
-            8: "RU",
-            9: "RU",
-            10: "RU",
-            21: "DE",
-        }
-
+        response = self.connection.request("v1/locations")
         locations = []
-        for loc in response.object["datacenters"]:
+        # there is only one possible location RU
+        default_location = "RU"
+        for loc in response.object:
             locations.append(
-                NodeLocation(loc["id"], loc["name"], country[loc["id"]], self),
+                NodeLocation(loc["id"], loc["description"], default_location, self),
             )
         return locations
 

@@ -52,11 +52,11 @@ libcloud драйвер для сервиса vscale.io.
 
 ### Остальные
 
-| Метод          | Поддержка |
-| -------------- | --------- |
-| list_images    | #4        |
-| list_locations | #5        |
-| list_sizes     | #6        |
+| Метод          | Поддержка          |
+| -------------- | ------------------ |
+| list_images    | #4                 |
+| list_locations | :heavy_check_mark: |
+| list_sizes     | #6                 |
 
 ## Методы DNS
 
