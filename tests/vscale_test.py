@@ -58,7 +58,7 @@ def test_list_locations():
     keys = conn.list_locations()
     key = keys.pop()
     assert key.id == "msk0"
-    assert key.name == "msk_description"
+    assert key.name == ""
     assert key.country == "RU"
 
 
