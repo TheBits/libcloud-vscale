@@ -18,13 +18,13 @@ libcloud драйвер для сервиса vscale.io.
 
 ### Управление образами
 
-| Метод        | Поддержка            |
-| ------------ | -------------------- |
-| copy_image   |                      |
-| create_image |                      |
-| delete_image |                      |
-| get_image    |                      |
-| list_images  | :heavy_check_mark:   |
+| Метод        | Поддержка          |
+| ------------ | ------------------ |
+| copy_image   |                    |
+| create_image |                    |
+| delete_image |                    |
+| get_image    |                    |
+| list_images  | :heavy_check_mark: |
 
 ### Управление дисками
 
