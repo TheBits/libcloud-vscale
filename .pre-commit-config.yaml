@@ -91,6 +91,7 @@ repos:
         name: pip-compile requirements-dev.in
         args: [requirements-dev.in]
         files: requirements-dev\.in
+        stages: [manual]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.2
     hooks:
