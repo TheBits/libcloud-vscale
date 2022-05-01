@@ -48,8 +48,8 @@ def test_list_images():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     keys = conn.list_images()
     key = keys.pop()
-    assert key.id == "ubuntu_14.04_64_002_master"
-    assert key.name == "Ubuntu_14.04_64_002_master"
+    assert key.id == "debian_11_64_001_master"
+    assert key.name == "Debian_11_64_001_master"
 
 
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
