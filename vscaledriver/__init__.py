@@ -65,7 +65,7 @@ class VscaleDriver(NodeDriver):
         default_location = "RU"
         for loc in response.object:
             locations.append(
-                NodeLocation(loc["id"], loc["description"], default_location, self),
+                NodeLocation(loc["id"], loc["description"], default_location, self, extra=loc),
             )
         return locations
 

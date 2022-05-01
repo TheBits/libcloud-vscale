@@ -60,6 +60,7 @@ def test_list_locations():
     assert key.id == "msk0"
     assert key.name == ""
     assert key.country == "RU"
+    assert key.extra["id"] == "msk0"
 
 
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
