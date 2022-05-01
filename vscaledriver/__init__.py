@@ -82,7 +82,7 @@ class VscaleDriver(NodeDriver):
         images = []
         response = self.connection.request("v1/images")
         for image in response.object:
-            images.append(NodeImage(image["id"], image["description"], self))
+            images.append(NodeImage(image["id"], image["description"], self, extra=image))
         return images
 
     def list_sizes(self, location=None):
