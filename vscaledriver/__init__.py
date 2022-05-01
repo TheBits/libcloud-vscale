@@ -1,10 +1,10 @@
 import datetime
 import json
-from typing import Optional
+from typing import List, Optional
 
 from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.common.types import InvalidCredsError, ProviderError
-from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeState
+from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeSize, NodeState
 from libcloud.dns.base import DNSDriver, Record, Zone
 from libcloud.dns.types import (
     RecordAlreadyExistsError,
@@ -74,7 +74,9 @@ class VscaleDriver(NodeDriver):
 
         locations = []
         for loc in response.object["datacenters"]:
-            locations.append(NodeLocation(loc["id"], loc["name"], country[loc["id"]], self))
+            locations.append(
+                NodeLocation(loc["id"], loc["name"], country[loc["id"]], self),
+            )
         return locations
 
     def list_images(self):
@@ -84,8 +86,29 @@ class VscaleDriver(NodeDriver):
             images.append(NodeImage(image["Id"], image["Name"], self))
         return images
 
-    def list_size(self):
-        pass
+    def list_sizes(self, location=None):
+        sizes = []
+        response = self.connection.request("v1/rplans")
+        for plan in response.object:
+            # since selectel doesnt support filtering do it manually
+            if location and location not in plan["locations"]:
+                continue
+            # selectel doesn't provide prices for plans and bandwidth
+            #  so set to 0
+            extra = plan
+            sizes.append(
+                NodeSize(
+                    id=plan["id"],
+                    name=plan["id"],
+                    ram=plan["memory"],
+                    disk=plan["disk"],
+                    price=0,
+                    bandwidth=0,
+                    driver=self,
+                    extra=extra,
+                ),
+            )
+        return sizes
 
     def list_key_pairs(self):
         response = self.connection.request("v1/sshkeys")
@@ -115,7 +138,12 @@ class VscaleDriver(NodeDriver):
         }
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json"}
-        response = self.connection.request("v1/sshkeys", method="POST", headers=headers, data=data)
+        response = self.connection.request(
+            "v1/sshkeys",
+            method="POST",
+            headers=headers,
+            data=data,
+        )
         kp = response.object
 
         key = kp.pop("key")
@@ -231,7 +259,12 @@ class VscaleDns(DNSDriver):
         payload = {"name": domain}
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json"}
-        response = self.connection.request("v1/domains/", data=data, headers=headers, method="POST")
+        response = self.connection.request(
+            "v1/domains/",
+            data=data,
+            headers=headers,
+            method="POST",
+        )
 
         result = response.object
 
@@ -260,7 +293,7 @@ class VscaleDns(DNSDriver):
 
         return response.status == httplib.NO_CONTENT
 
-    def list_records(self, zone: Zone) -> list[Record]:
+    def list_records(self, zone: Zone) -> List[Record]:
         response = self.connection.request(f"v1/domains/{zone.id}/records/")
         result = response.object
 
@@ -324,7 +357,12 @@ class VscaleDns(DNSDriver):
         headers = {"Content-Type": "application/json"}
         url = f"v1/domains/{zone.id}/records/"
         try:
-            response = self.connection.request(url, method="POST", headers=headers, data=data)
+            response = self.connection.request(
+                url,
+                method="POST",
+                headers=headers,
+                data=data,
+            )
         except ProviderError as e:
             if e.value == "record_already_exists":
                 raise RecordAlreadyExistsError(e.value, self, record_id=None)
@@ -351,10 +389,20 @@ class VscaleDns(DNSDriver):
         return record
 
     def delete_record(self, record):
-        response = self.connection.request(f"v1/domains/{record.zone.id}/records/{record.id}", method="DELETE")
+        response = self.connection.request(
+            f"v1/domains/{record.zone.id}/records/{record.id}",
+            method="DELETE",
+        )
         return response.status == httplib.NO_CONTENT
 
-    def update_record(self, record, name: Optional[str], type: Optional[RecordType], data: Optional[str], extra=None):
+    def update_record(
+        self,
+        record,
+        name: Optional[str],
+        type: Optional[RecordType],
+        data: Optional[str],
+        extra=None,
+    ):
 
         payload = {}
         payload["name"] = record.name if name is None else name
@@ -365,7 +413,12 @@ class VscaleDns(DNSDriver):
         headers = {"Content-Type": "application/json"}
         data = json.dumps(payload)
         try:
-            response = self.connection.request(url, method="PUT", headers=headers, data=data)
+            response = self.connection.request(
+                url,
+                method="PUT",
+                headers=headers,
+                data=data,
+            )
         except ProviderError as e:
             if e.value == "domain_not_found":
                 raise ZoneDoesNotExistError(e.value, self, record.zone.id)
@@ -429,7 +482,12 @@ class VscaleDns(DNSDriver):
         headers = {"Content-Type": "application/json"}
         data = json.dumps(payload)
         try:
-            response = self.connection.request(url, method="PATCH", headers=headers, data=data)
+            response = self.connection.request(
+                url,
+                method="PATCH",
+                headers=headers,
+                data=data,
+            )
         except ProviderError as e:
             if e.value == "domain_not_found":
                 raise ZoneDoesNotExistError(e.value, self, zone.id)
