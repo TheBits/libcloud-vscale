@@ -11,12 +11,12 @@ interactions:
       Host:
       - api.vscale.io
       User-Agent:
-      - 'libcloud/3.3.1 (Vscale) '
+      - 'libcloud/3.5.1 (Vscale) '
     method: GET
     uri: https://api.vscale.io/v1/locations
   response:
     body:
-      string: '[{"id":"spb0","description":"spb_description","active":true,"private_networking":false,"rplans":["small","medium","large","huge","monster"],"templates":["ubuntu_18.04_64_001_master","centos_7_64_001_master","ubuntu_20.04_64_001_ajenti","ubuntu_16.04_64_001_master","ubuntu_20.04_64_001_docker","debian_10_64_001_fastpanel","ubuntu_20.04_64_001_bitrix","ubuntu_20.04_64_001_mongodb","ubuntu_14.04_64_001_preseed","ubuntu_20.04_64_001_lamp","ubuntu_20.04_64_001_nodejs","ubuntu_20.04_64_001_gitlab","ubuntu_20.04_64_001_gogs","ubuntu_20.04_64_001_wordpress","ubuntu_20.04_64_001_django","ubuntu_20.04_64_001_redmine","ubuntu_20.04_64_001_redis","ubuntu_20.04_64_001_jenkins","debian_9_64_001_master","CentOS_8_64_001_master","debian_10_64_001_master","ubuntu_20.04_64_001_master","Fedora_32_64_001_master","debian_11_64_001_master"]},{"id":"msk0","description":"msk_description","active":true,"private_networking":false,"rplans":["small","medium","large","huge","monster"],"templates":["ubuntu_18.04_64_001_master","centos_7_64_001_master","ubuntu_20.04_64_001_ajenti","ubuntu_16.04_64_001_master","ubuntu_20.04_64_001_docker","debian_10_64_001_fastpanel","ubuntu_20.04_64_001_bitrix","ubuntu_20.04_64_001_mongodb","ubuntu_14.04_64_001_preseed","ubuntu_20.04_64_001_lamp","ubuntu_20.04_64_001_nodejs","ubuntu_20.04_64_001_gitlab","ubuntu_20.04_64_001_gogs","ubuntu_20.04_64_001_wordpress","ubuntu_20.04_64_001_django","ubuntu_20.04_64_001_redmine","ubuntu_20.04_64_001_redis","ubuntu_20.04_64_001_jenkins","debian_9_64_001_master","CentOS_8_64_001_master","debian_10_64_001_master","ubuntu_20.04_64_001_master","Fedora_32_64_001_master","debian_11_64_001_master"]}]'
+      string: '[{"id":"spb0","description":"","active":true,"private_networking":false,"rplans":["small","medium","large","huge","monster"],"templates":["ubuntu_18.04_64_001_master","centos_7_64_001_master","ubuntu_20.04_64_001_ajenti","ubuntu_16.04_64_001_master","ubuntu_20.04_64_001_docker","debian_10_64_001_fastpanel","ubuntu_20.04_64_001_bitrix","ubuntu_20.04_64_001_mongodb","ubuntu_14.04_64_001_preseed","ubuntu_20.04_64_001_lamp","ubuntu_20.04_64_001_nodejs","ubuntu_20.04_64_001_gitlab","ubuntu_20.04_64_001_gogs","ubuntu_20.04_64_001_wordpress","ubuntu_20.04_64_001_django","ubuntu_20.04_64_001_redmine","ubuntu_20.04_64_001_redis","ubuntu_20.04_64_001_jenkins","debian_9_64_001_master","CentOS_8_64_001_master","debian_10_64_001_master","ubuntu_20.04_64_001_master","Fedora_32_64_001_master","debian_11_64_001_master"]},{"id":"msk0","description":"","active":true,"private_networking":false,"rplans":["small","medium","large","huge","monster"],"templates":["ubuntu_18.04_64_001_master","centos_7_64_001_master","ubuntu_20.04_64_001_ajenti","ubuntu_16.04_64_001_master","ubuntu_20.04_64_001_docker","debian_10_64_001_fastpanel","ubuntu_20.04_64_001_bitrix","ubuntu_20.04_64_001_mongodb","ubuntu_14.04_64_001_preseed","ubuntu_20.04_64_001_lamp","ubuntu_20.04_64_001_nodejs","ubuntu_20.04_64_001_gitlab","ubuntu_20.04_64_001_gogs","ubuntu_20.04_64_001_wordpress","ubuntu_20.04_64_001_django","ubuntu_20.04_64_001_redmine","ubuntu_20.04_64_001_redis","ubuntu_20.04_64_001_jenkins","debian_9_64_001_master","CentOS_8_64_001_master","debian_10_64_001_master","ubuntu_20.04_64_001_master","Fedora_32_64_001_master","debian_11_64_001_master"]}]'
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -36,21 +36,21 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '432'
+      - '1633'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 19 Mar 2021 13:29:02 GMT
+      - Sun, 01 May 2022 14:47:31 GMT
       Server:
       - vscale
       Set-Cookie:
-      - cid=X9X/EWBUpx4ygQvuHmCVAg==; path=/
+      - cid=X9X/EWJunYNO5nRVUrYlAg==; path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubdomains; preload
       X-Frame-Options:
       - origin
       X-Request-Id:
-      - 7482599f1e0971c9bedc
+      - MzgmkjFHtwzoOy8f_ybT7
     status:
       code: 200
       message: OK
