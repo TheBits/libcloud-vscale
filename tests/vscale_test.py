@@ -37,10 +37,10 @@ def test_list_sizes_with_location_filtering():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     sizes = conn.list_sizes(location="msk0")
     size = sizes.pop()
-    assert size.id == "small"
-    assert size.disk == 20480
-    assert size.ram == 512
-    assert size.extra["id"] == "small"
+    assert size.id == "monster"
+    assert size.disk == 81920
+    assert size.ram == 8192
+    assert size.extra["id"] == "monster"
 
 
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
