@@ -51,7 +51,6 @@ class VscaleDriver(NodeDriver):
     connectionCls = VscaleConnection
     name = "Vscale"
     website = "https://vscale.io/"
-
     NODE_STATE_MAP = {
         "started": NodeState.RUNNING,
         "stopped": NodeState.STOPPED,
@@ -81,9 +80,9 @@ class VscaleDriver(NodeDriver):
 
     def list_images(self):
         images = []
-        response = self.connection.request("api/os")
-        for image in response.object["os"]:
-            images.append(NodeImage(image["Id"], image["Name"], self))
+        response = self.connection.request("v1/images")
+        for image in response.object:
+            images.append(NodeImage(image["id"], image["description"], self))
         return images
 
     def list_sizes(self, location=None):

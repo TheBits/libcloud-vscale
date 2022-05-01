@@ -43,6 +43,15 @@ def test_list_sizes_with_location_filtering():
     assert size.extra["id"] == "monster"
 
 
+@vcr.use_cassette("./tests/fixtures/list_images.yaml", filter_headers=["X-Token"])
+def test_list_images():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    keys = conn.list_images()
+    key = keys.pop()
+    assert key.id == "ubuntu_14.04_64_002_master"
+    assert key.name == "Ubuntu_14.04_64_002_master"
+
+
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
 def test1_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
