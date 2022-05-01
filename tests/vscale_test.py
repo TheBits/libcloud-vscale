@@ -21,6 +21,28 @@ def test_list_key_pairs():
     assert key.extra["id"] == 46329
 
 
+@vcr.use_cassette("./tests/fixtures/list_sizes.yaml", filter_headers=["X-Token"])
+def test_list_sizes_no_location():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    sizes = conn.list_sizes()
+    size = sizes.pop()
+    assert size.id == "monster"
+    assert size.disk == 81920
+    assert size.ram == 8192
+    assert size.extra["id"] == "monster"
+
+
+@vcr.use_cassette("./tests/fixtures/list_sizes.yaml", filter_headers=["X-Token"])
+def test_list_sizes_with_location_filtering():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    sizes = conn.list_sizes(location="msk0")
+    size = sizes.pop()
+    assert size.id == "small"
+    assert size.disk == 20480
+    assert size.ram == 512
+    assert size.extra["id"] == "small"
+
+
 @vcr.use_cassette("./tests/fixtures/get_key_pair.yaml", filter_headers=["X-Token"])
 def test1_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
