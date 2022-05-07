@@ -186,6 +186,34 @@ class VscaleDriver(NodeDriver):
 
         return nodes
 
+    def start_node(self, node_id: int) -> bool:
+        payload = {
+            "id": node_id,
+        }
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json;charset=UTF-8"}
+        response = self.connection.request(
+            f"v1/scalets/{node_id}/start",
+            data=data,
+            headers=headers,
+            method="POST",
+        )
+        return response.status == httplib.OK
+
+    def stop_node(self, node_id: int) -> bool:
+        payload = {
+            "id": node_id,
+        }
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json;charset=UTF-8"}
+        response = self.connection.request(
+            f"v1/scalets/{node_id}/stop",
+            headers=headers,
+            data=data,
+            method="POST",
+        )
+        return response.status == httplib.OK
+
 
 class VscaleDns(DNSDriver):
     connectionCls = VscaleConnection

@@ -314,3 +314,19 @@ def test_compute_create_pair():
     assert kp.name == name
     assert kp.public_key == kp.public_key
     assert kp.extra["id"] > 0
+
+
+@vcr.use_cassette("./tests/fixtures/start_node.yaml", filter_headers=["X-Token"])
+def test_start_node():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node_id = "123"
+    resp = conn.start_node(node_id)
+    assert resp is True
+
+
+@vcr.use_cassette("./tests/fixtures/stop_node.yaml", filter_headers=["X-Token"])
+def test_stop_node():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node_id = "123"
+    resp = conn.stop_node(node_id)
+    assert resp is True
