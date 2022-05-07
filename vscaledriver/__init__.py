@@ -65,7 +65,13 @@ class VscaleDriver(NodeDriver):
         default_location = "RU"
         for loc in response.object:
             locations.append(
-                NodeLocation(loc["id"], loc["description"], default_location, self, extra=loc),
+                NodeLocation(
+                    loc["id"],
+                    loc["description"],
+                    default_location,
+                    self,
+                    extra=loc,
+                ),
             )
         return locations
 
@@ -73,8 +79,14 @@ class VscaleDriver(NodeDriver):
         images = []
         response = self.connection.request("v1/images")
         for image in response.object:
-            images.append(NodeImage(image["id"], image["description"], self, extra=image))
+            images.append(
+                NodeImage(image["id"], image["description"], self, extra=image),
+            )
         return images
+
+    def reboot_node(self, node_id: str):
+        response = self.connection.request(f"v1/scalets/{node_id}/restart")
+        return response.status == httplib.OK
 
     def list_sizes(self, location=None):
         sizes = []

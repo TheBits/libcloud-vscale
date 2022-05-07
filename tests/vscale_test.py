@@ -73,21 +73,30 @@ def test1_get_key_pair():
     assert key.extra["id"] == 46329
 
 
-@vcr.use_cassette("./tests/fixtures/compute_get_key_pair.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/compute_get_key_pair.yaml",
+    filter_headers=["X-Token"],
+)
 def test_compute_get_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     key = conn.get_key_pair("test key")
     assert key
 
 
-@vcr.use_cassette("./tests/fixtures/compute_get_key_pair_empty.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/compute_get_key_pair_empty.yaml",
+    filter_headers=["X-Token"],
+)
 def test_compute_get_key_pair_empty():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     key = conn.get_key_pair("MissingName")
     assert key is None
 
 
-@vcr.use_cassette("./tests/fixtures/compute_delete_key_pair.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/compute_delete_key_pair.yaml",
+    filter_headers=["X-Token"],
+)
 def test_compute_delete_key_pair():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     kp = conn.get_key_pair("test key")
@@ -107,7 +116,10 @@ def test4_list_nodes():
     assert node1.image.id == "ubuntu_20.04_64_001_master"
 
 
-@vcr.use_cassette("./tests/fixtures/dns_list_zones_empty.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_list_zones_empty.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_list_zones_empty():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     zones = conn.list_zones()
@@ -133,10 +145,18 @@ def test_dns_create_zone():
     assert zone
     assert zone.id == "68155"
     assert zone.domain == "cloudsea.ru"
-    assert zone.extra == {"user_id": 15872, "tags": [], "change_date": 1648384912, "create_date": 1648384912}
+    assert zone.extra == {
+        "user_id": 15872,
+        "tags": [],
+        "change_date": 1648384912,
+        "create_date": 1648384912,
+    }
 
 
-@vcr.use_cassette("./tests/fixtures/dns_create_zone_alread_exist.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_create_zone_alread_exist.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_create_zone_alread_exist():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     with pytest.raises(ProviderError, match="domain_already_exists") as exc_info:
@@ -151,10 +171,18 @@ def test_dns_get_zone():
     assert zone
     assert zone.id == "68155"
     assert zone.domain == "cloudsea.ru"
-    assert zone.extra == {"user_id": 15872, "tags": [], "change_date": 1648384912, "create_date": 1648384912}
+    assert zone.extra == {
+        "user_id": 15872,
+        "tags": [],
+        "change_date": 1648384912,
+        "create_date": 1648384912,
+    }
 
 
-@vcr.use_cassette("./tests/fixtures/dns_get_zone_not_folund.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_get_zone_not_folund.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_get_zone_not_found():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     with pytest.raises(ProviderError, match="domain_not_found") as exc_info:
@@ -170,7 +198,10 @@ def test_dns_delete_zone():
     assert result
 
 
-@vcr.use_cassette("./tests/fixtures/dns_delete_zone_not_found.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_delete_zone_not_found.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_delete_zone_not_found():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     zone = Zone("123", "example.com", "master", ttl=None, driver=conn)
@@ -178,7 +209,10 @@ def test_dns_delete_zone_not_found():
         conn.delete_zone(zone)
 
 
-@vcr.use_cassette("./tests/fixtures/dns_list_records_example.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_list_records_example.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_list_records_example():
     # используется пример из документации
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
@@ -252,7 +286,10 @@ def test_dns_update_record():
     conn.delete_record(actual)
 
 
-@vcr.use_cassette("./tests/fixtures/dns_update_record_zone_does_not_exist.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_update_record_zone_does_not_exist.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_update_record_zone_does_not_exist():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     name = "example.com"
@@ -264,7 +301,10 @@ def test_dns_update_record_zone_does_not_exist():
         record.update(name=data)
 
 
-@vcr.use_cassette("./tests/fixtures/dns_update_record_record_does_not_exist.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_update_record_record_does_not_exist.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_update_record_record_does_not_exist():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     name = "cloudsea.ru"
@@ -275,7 +315,10 @@ def test_dns_update_record_record_does_not_exist():
         conn.update_record(record, name=None, type=None, data=None)
 
 
-@vcr.use_cassette("./tests/fixtures/dns_create_record_already_exists.yaml", filter_headers=["X-Token"])
+@vcr.use_cassette(
+    "./tests/fixtures/dns_create_record_already_exists.yaml",
+    filter_headers=["X-Token"],
+)
 def test_dns_create_record_already_exists():
     conn = VscaleDns(key=os.getenv("VSCALE_TOKEN"))
     name = "cloudsea.ru"
@@ -314,3 +357,11 @@ def test_compute_create_pair():
     assert kp.name == name
     assert kp.public_key == kp.public_key
     assert kp.extra["id"] > 0
+
+
+@vcr.use_cassette("./tests/fixtures/reboot_node.yaml", filter_headers=["X-Token"])
+def test_reboot_node_sucess():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node_id = "123"
+    resp = conn.reboot_node(node_id)
+    assert resp is True
