@@ -225,7 +225,6 @@ class VscaleDriver(NodeDriver):
         )
         return response.status == httplib.OK
 
-
     def destroy_node(self, node: Node) -> bool:
         headers = {"Content-Type": "application/json;charset=UTF-8"}
         response = self.connection.request(
@@ -234,7 +233,6 @@ class VscaleDriver(NodeDriver):
             method="DELETE",
         )
         return response.status == httplib.OK
-
 
     def create_node(
         self,

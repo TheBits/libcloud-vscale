@@ -353,4 +353,3 @@ def test_create_node():
     assert new_node.name == "New-Test"
     assert new_node.image == node_image
     assert new_node.created_at == "20.08.2015 14:57:04"
-
