@@ -4,6 +4,7 @@ import os
 import pytest
 import vcr
 from libcloud.common.types import InvalidCredsError, ProviderError
+from libcloud.compute.base import Node, NodeImage, NodeSize
 from libcloud.dns.base import Record, Zone
 from libcloud.dns.types import RecordAlreadyExistsError, RecordDoesNotExistError, RecordType, ZoneDoesNotExistError, ZoneError
 
@@ -330,3 +331,16 @@ def test_stop_node():
     node_id = "123"
     resp = conn.stop_node(node_id)
     assert resp is True
+
+
+@vcr.use_cassette("./tests/fixtures/create_node.yaml", filter_headers=["X-Token"])
+def test_create_node():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node_size = NodeSize(id="medium", name="medium", ram=1000, disk=1000, price=100, driver=conn, bandwidth=1000)
+    node_image = NodeImage(id="ubuntu_20_04_lts", name="ubuntu_20_04_lts", driver=conn)
+    new_node = conn.create_node(name="test_node", size=node_size, image=node_image)
+    assert isinstance(new_node, Node)
+    assert new_node.id == "11"
+    assert new_node.name == "New-Test"
+    assert new_node.image == node_image
+    assert new_node.created_at == "20.08.2015 14:57:04"
