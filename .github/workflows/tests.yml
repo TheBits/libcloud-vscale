@@ -5,32 +5,26 @@ on:
   push:
     branches: [main]
 
+env:
+  DRIVER_TOKEN: github-actions
+  TOX_PARALLEL_NO_SPINNER: 1
+
 jobs:
-  pytest:
+  tox:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-    - name: Install dependencies
-      run: |
-        python -m pip install --progress-bar off -r requirements-dev.txt pytest apache-libcloud
-        python -m pip install --progress-bar off -e .
-    - name: Test with pytest
-      run: |
-        pytest
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.cache/pre-commit
-        key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-    - uses: pre-commit/action@v2.0.3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/pre-commit
+            .tox
+            .mypy_cache
+            ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-${{ env.pythonLocation }}-pip-${{ hashFiles('**/requirements-tox.txt') }}
+      - name: Install dependencies
+        run: python -m pip install --progress-bar off tox
+      - name: Run all envs
+        run: tox -p auto -e 'libcloud{30,31,32,33,34,35},pre-commit'
