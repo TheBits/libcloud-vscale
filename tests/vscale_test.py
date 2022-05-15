@@ -5,6 +5,7 @@ import pytest
 import vcr
 from libcloud.common.types import InvalidCredsError, ProviderError
 from libcloud.compute.base import Node, NodeImage, NodeSize
+from libcloud.compute.types import NodeState
 from libcloud.dns.base import Record, Zone
 from libcloud.dns.types import RecordAlreadyExistsError, RecordDoesNotExistError, RecordType, ZoneDoesNotExistError, ZoneError
 
@@ -330,6 +331,14 @@ def test_stop_node():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
     node_id = "123"
     resp = conn.stop_node(node_id)
+    assert resp is True
+
+
+@vcr.use_cassette("./tests/fixtures/reboot_node.yaml", filter_headers=["X-Token"])
+def test_reboot_node():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node = Node(id="123", name="test", state=NodeState.RUNNING, driver=conn, private_ips=[], public_ips=[])
+    resp = conn.reboot_node(node)
     assert resp is True
 
 
