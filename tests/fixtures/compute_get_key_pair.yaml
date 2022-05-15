@@ -11,13 +11,13 @@ interactions:
       Host:
       - api.vscale.io
       User-Agent:
-      - 'libcloud/3.5.0 (Vscale) '
+      - 'libcloud/3.3.1 (Vscale) '
     method: GET
     uri: https://api.vscale.io/v1/sshkeys
   response:
     body:
-      string: '[{"id":100318,"name":"test key","key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDdlUgMYerMvfRdmMWOSYbbVTkq5kjawV8nwQq0Ify6P
-        user@barracuda"}]'
+      string: '[{"id":46329,"name":"x200s","key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLZvQS/4YLHQUKJJupgUuqP28ugEujpqRg7MBBTMRDdOdu+S8Qy0YZSURX6+/+OOXWvP0yICHaiNhyELOMFPXdOF33y1gYvm5YHVq+ehSEtJQQd0r6v+ngs/TEtM0hif7CvvGkVCCREkTV5sMW9agE8xmerlQIyEF280h0KrAemL9IKeVcpeEEF4uWUvElDcoUgOqY2Debwje4SWtfs7Ic73vmpZLJ7CPgxJVaEcLsjbdsm9TeJY7havDRldyh+QkGISyIYRHkxfSV3LA2Zv7I4Ckxx55ZegBwRRDbWALZp38FZ9NvdkbJMmcTM5P1HbNrKmgV/Rce9dtav8vuL2Xp
+        thebits@x200s"}]'
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -37,21 +37,21 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '137'
+      - '432'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 11 Apr 2022 15:34:39 GMT
+      - Fri, 19 Mar 2021 13:29:02 GMT
       Server:
       - vscale
       Set-Cookie:
-      - cid=X9X/EWJUSo9O/nRUSVEpAg==; path=/
+      - cid=X9X/EWBUpx4ygQvuHmCVAg==; path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubdomains; preload
       X-Frame-Options:
       - origin
       X-Request-Id:
-      - kFsmwYVkeL165x9IEJNW7
+      - RuIk6evHHQAsPu9rhd4XJ
     status:
       code: 200
       message: OK
