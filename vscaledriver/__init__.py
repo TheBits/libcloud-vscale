@@ -4,7 +4,18 @@ from typing import List, Optional
 
 from libcloud.common.base import ConnectionKey, JsonResponse
 from libcloud.common.types import InvalidCredsError, ProviderError
-from libcloud.compute.base import KeyPair, Node, NodeDriver, NodeImage, NodeLocation, NodeSize, NodeState
+from libcloud.compute.base import (
+    KeyPair,
+    Node,
+    NodeAuthPassword,
+    NodeAuthSSHKey,
+    NodeDriver,
+    NodeImage,
+    NodeLocation,
+    NodeSize,
+    NodeState,
+    T_Auth,
+)
 from libcloud.dns.base import DNSDriver, Record, Zone
 from libcloud.dns.types import (
     RecordAlreadyExistsError,
@@ -214,6 +225,7 @@ class VscaleDriver(NodeDriver):
         )
         return response.status == httplib.OK
 
+
     def destroy_node(self, node: Node) -> bool:
         headers = {"Content-Type": "application/json;charset=UTF-8"}
         response = self.connection.request(
@@ -222,6 +234,50 @@ class VscaleDriver(NodeDriver):
             method="DELETE",
         )
         return response.status == httplib.OK
+
+
+    def create_node(
+        self,
+        name: str,
+        size: NodeSize,
+        image: NodeImage,
+        location: Optional[NodeLocation] = None,
+        auth: T_Auth = None,
+    ) -> Node:
+        payload = {
+            "make_from": image.id,
+            "rplan": size.id,
+            "do_start": True,
+            "name": name,
+        }
+        if location:
+            payload["location"] = location
+        if T_Auth:
+            if isinstance(T_Auth, NodeAuthSSHKey):
+                payload["keys"] = [T_Auth.pubkey]
+            elif isinstance(T_Auth, NodeAuthPassword):
+                payload["password"] = T_Auth.password
+        data = json.dumps(payload)
+        headers = {"Content-Type": "application/json;charset=UTF-8"}
+        response = self.connection.request(
+            "v1/scalets",
+            headers=headers,
+            data=data,
+            method="POST",
+        )
+        state = self.NODE_STATE_MAP.get(response.object.get("status"), NodeState.UNKNOWN)
+        node = Node(
+            id=response.object.get("ctid"),
+            name=response.object.get("name"),
+            state=state,
+            public_ips=response.object.get("public_address"),
+            private_ips=response.object.get("private_address"),
+            driver=self,
+            image=image,
+            extra=response,
+            created_at=response.object.get("created"),
+        )
+        return node
 
 
 class VscaleDns(DNSDriver):
