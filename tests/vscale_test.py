@@ -341,6 +341,14 @@ def test_destroy_node():
     resp = conn.destroy_node(node)
     assert resp is True
 
+    
+@vcr.use_cassette("./tests/fixtures/reboot_node.yaml", filter_headers=["X-Token"])
+def test_reboot_node():
+    conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
+    node = Node(id="123", name="test", state=NodeState.RUNNING, driver=conn, private_ips=[], public_ips=[])
+    resp = conn.reboot_node(node)
+    assert resp is True
+
 
 @vcr.use_cassette("./tests/fixtures/create_node.yaml", filter_headers=["X-Token"])
 def test_create_node():
