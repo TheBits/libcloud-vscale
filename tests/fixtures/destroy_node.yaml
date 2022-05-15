@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip,deflate
+      Connection:
+      - keep-alive
+      Host:
+      - api.vscale.io
+      User-Agent:
+      - 'libcloud/3.5.1 (Vscale) '
+    method: DELETE
+    uri: https://api.vscale.io/v1/scalets/123
+  response:
+    body:
+      string: '{"hostname":"cs10299.vscale.ru","locked":false,"location":"spb0","rplan":"huge","name":"MyServer","active":true,"keys":[{"name":"somekeyname","id":16}],"public_address":{"netmask":"255.255.255.0","gateway":"95.213.191.1","address":"95.213.191.120"},"status":"deleted","made_from":"ubuntu_14.04_64_002_master","ctid":10299,"private_address":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Authorization, Content-Type, Accept, Access-Control-Allow-Credentials,
+        DNT, X-CustomHeader, Keep-Alive, User-Agent, If-Modified-Since, Cache-Control,
+        Accept-Encoding, Accept-Language, Connection, Cookie, Host, Pragma, X-Atlassian-Token,
+        X-ExperimentalApi, Referer
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, COPY, PATCH, OPTIONS, HEAD
+      Access-Control-Allow-Origin:
+      - https://vscale.io
+      Access-Control-Expose-Headers:
+      - VSCALE-ERROR-MESSAGE, VSCALE-REQUEST-ID
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 01 May 2022 15:18:23 GMT
+      Server:
+      - vscale
+      Set-Cookie:
+      - cid=X9X/EWJupL9O5nRVUrivAg==; path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - origin
+      X-Request-Id:
+      - 3sdumQuWbBc8lwUkNE43E
+    status:
+      code: 200
+      message: OK
+version: 1
