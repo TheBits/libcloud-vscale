@@ -214,6 +214,15 @@ class VscaleDriver(NodeDriver):
         )
         return response.status == httplib.OK
 
+    def reboot_node(self, node_id: Node) -> bool:
+        headers = {"Content-Type": "application/json;charset=UTF-8"}
+        response = self.connection.request(
+            f"v1/scalets/{node_id}/restart",
+            headers=headers,
+            method="PATCH",
+        )
+        return response.status == httplib.OK
+
 
 class VscaleDns(DNSDriver):
     connectionCls = VscaleConnection
