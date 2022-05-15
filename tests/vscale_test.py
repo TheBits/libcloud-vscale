@@ -321,16 +321,16 @@ def test_compute_create_pair():
 @vcr.use_cassette("./tests/fixtures/start_node.yaml", filter_headers=["X-Token"])
 def test_start_node():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
-    node_id = "123"
-    resp = conn.start_node(node_id)
+    node = Node(id="123", name="test", state=NodeState.RUNNING, driver=conn, private_ips=[], public_ips=[])
+    resp = conn.start_node(node)
     assert resp is True
 
 
 @vcr.use_cassette("./tests/fixtures/stop_node.yaml", filter_headers=["X-Token"])
 def test_stop_node():
     conn = VscaleDriver(key=os.getenv("VSCALE_TOKEN"))
-    node_id = "123"
-    resp = conn.stop_node(node_id)
+    node = Node(id="123", name="test", state=NodeState.RUNNING, driver=conn, private_ips=[], public_ips=[])
+    resp = conn.stop_node(node)
     assert resp is True
 
 

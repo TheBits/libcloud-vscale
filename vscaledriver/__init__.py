@@ -197,28 +197,28 @@ class VscaleDriver(NodeDriver):
 
         return nodes
 
-    def start_node(self, node_id: int) -> bool:
+    def start_node(self, node: Node) -> bool:
         payload = {
-            "id": node_id,
+            "id": node.id,
         }
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json;charset=UTF-8"}
         response = self.connection.request(
-            f"v1/scalets/{node_id}/start",
+            f"v1/scalets/{node.id}/start",
             data=data,
             headers=headers,
             method="POST",
         )
         return response.status == httplib.OK
 
-    def stop_node(self, node_id: int) -> bool:
+    def stop_node(self, node: Node) -> bool:
         payload = {
-            "id": node_id,
+            "id": node.id,
         }
         data = json.dumps(payload)
         headers = {"Content-Type": "application/json;charset=UTF-8"}
         response = self.connection.request(
-            f"v1/scalets/{node_id}/stop",
+            f"v1/scalets/{node.id}/stop",
             headers=headers,
             data=data,
             method="POST",
