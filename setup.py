@@ -1,24 +1,32 @@
+import textwrap
+
 import setuptools
 
-with open("README.md") as fh:
-    long_description = fh.read()
+url = "https://github.com/thebits/libcloud-vscale"
+
+long_description = """
+[Libcloud](https://libcloud.apache.org/) driver for interacting with [vds.selectel.ru](https://vds.selectel.ru/).
+
+Full list of all methods see at [README at github]({}).
+""".format(
+    url,
+)
 
 setuptools.setup(
     name="vscaledriver",
-    version="0.0.1",
+    version="0.9.0",
     author="Sergey Mezentsev",
     author_email="thebits@yandex.ru",
-    description="Libcloud driver for Vscale",
+    description="Libcloud driver for vds.selectel.ru (vscale.io)",
     license="UNLICENSE",
-    long_description=long_description,
+    long_description=textwrap.dedent(long_description),
     long_description_content_type="text/markdown",
-    url="https://github.com/thebits/libcloud-vscale",
+    url=url,
     install_requires=["apache-libcloud>=3.0.0"],
     packages=setuptools.find_packages(),
     classifiers=[
         "Intended Audience :: System Administrators",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
-        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
 )
